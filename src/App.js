@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Nav from "./Components/Nav";
+import AddingTodo from "./Components/AddingTodo";
+import TodoItem from "./Components/TodoItem";
+import { useSelector } from "react-redux";
+import { addTodos } from "./Redux/reducer";
 
-function App() {
+const App = () => {
+  const selector = useSelector(addTodos);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-black h-[100vh]">
+      <Nav />
+      <AddingTodo />
+      <div className="grid sm:grid-cols-1 md:grid-cols-5 mt-2">
+        {selector.payload.map((e) => {
+          return <TodoItem data={e} />;
+        })}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
